@@ -10,7 +10,7 @@ import { Card, CardSchema } from './card.entity';
   imports: [
     HttpModule,
     MongooseModule.forRoot(
-      'mongodb+srv://<user>:<password>@cluster.1234.mongodb.net/',
+      'mongodb+srv://user-myl:yLFKPPH714nxsCjS@micluster.bo3pw.mongodb.net/myl',
       {
         dbName: 'myl',
       },

@@ -13,9 +13,9 @@ export class AxiosService {
       try {
         const resp = await firstValueFrom(
           this.http.get(
-            CARTAS_EDICIONES.replace('SLUG_EDICION', nameEdition).replace(
-              /\s+/g,
-              '',
+            CARTAS_EDICIONES.replace(
+              'SLUG_EDICION',
+              nameEdition.replace(/[\s,'()¿?¡!]+/g, '').replace('ñ', 'n'),
             ),
           ),
         );
@@ -35,16 +35,23 @@ export class AxiosService {
     while (true) {
       try {
         console.log(
-          PROFILE_CARD.replace('ED_SLUG', editionSlug).replace(
+          PROFILE_CARD.replace(
+            'ED_SLUG',
+            editionSlug.replace(/[\s,'.()¿?¡!]+/g, '').replace('ñ', 'n'),
+          ).replace(
             'CARD_SLUG',
-            cardSlug,
+            cardSlug.replace(/[\s,'.()¿?¡!]+/g, '').replace('ñ', 'n'),
           ),
         );
         const resp = await firstValueFrom(
           this.http.get(
-            PROFILE_CARD.replace('ED_SLUG', editionSlug)
-              .replace('CARD_SLUG', cardSlug)
-              .replace(/\s+/g, ''),
+            PROFILE_CARD.replace(
+              'ED_SLUG',
+              editionSlug.replace(/[\s,'.()]+/g, '').replace('ñ', 'n'),
+            ).replace(
+              'CARD_SLUG',
+              cardSlug.replace(/[\s,'.()¿?¡!]+/g, '').replace('ñ', 'n'),
+            ),
           ),
         );
 
@@ -66,7 +73,8 @@ export class AxiosService {
           this.http.get(
             IMAGE_CARD.replace('ID_EDICION', editionId)
               .replace('EDID_CARD', cardId)
-              .replace(/\s+/g, ''),
+              .replace(/\s+,/g, '')
+              .replace('ñ', 'n'),
             { responseType: 'arraybuffer' },
           ),
         );
